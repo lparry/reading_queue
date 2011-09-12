@@ -1,4 +1,13 @@
-%ol
+%table
   - @queue.each do |item|
-    %li
-      = "#{item.url} Read?: #{item.read}"
+    %tr
+      %td
+        %a{:href => item.url}
+          = item.url
+      %td
+        = item.read ? "read" : "unread"
+      %td
+        [
+        %a{:href => "/delete?id=#{item.id}"}
+          X
+        ]

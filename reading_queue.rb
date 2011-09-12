@@ -46,6 +46,13 @@ get '/mark_read?' do
   redirect '/'
 end
 
+get '/delete' do
+  if params[:id]
+    QueueItem.find(params[:id].to_i).try(:destroy)
+    redirect '/queue'
+  end
+end
+
 get '/add' do
   if params[:url]
     QueueItem.create!(:url => params[:url])
