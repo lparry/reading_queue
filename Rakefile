@@ -1,6 +1,6 @@
 desc 'load the environment'
 task(:environment) do
-  require 'reading_queue'
+  require File.expand_path('../reading_queue', __FILE__)
 end
 
 namespace :db do
