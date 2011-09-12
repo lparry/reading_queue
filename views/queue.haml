@@ -1,0 +1,4 @@
+%ol
+  - @queue.each do |item|
+    %li
+      = "#{item.url} Read?: #{item.read}"

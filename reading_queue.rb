@@ -2,7 +2,6 @@ puts "starting app"
 
 require 'rubygems'
 require 'bundler'
-require 'logger'
 
 Bundler.require
 
@@ -11,7 +10,7 @@ require 'sinatra'
 require 'haml'
 require 'active_record'
 
-Dir.glob('models/*').each { |lib| require lib }
+Dir.glob(File.expand_path('../models/*', __FILE__)).each { |lib| require lib }
 
 dbconfig = YAML.load(File.read('config/database.yml'))
 current_environment = ENV['RACK_ENV'] || 'development'
@@ -28,7 +27,35 @@ helpers do
 end
 
 get '/' do
-  haml :index
+  @item = QueueItem.unread.first
+  if @item
+    haml :index, :layout => false
+  else
+    haml :no_more_items
+  end
+end
+
+get '/nav?' do
+  haml :nav, :layout => false
+end
+
+get '/mark_read?' do
+  item = QueueItem.unread.first
+  item.read = true
+  item.save!
+  redirect '/'
+end
+
+get '/add' do
+  if params[:url]
+    QueueItem.create!(:url => params[:url])
+    redirect '/queue'
+  end
+end
+
+get '/queue' do
+  @queue = QueueItem.all
+  haml :queue
 end
 
 get '/*' do |page_template|

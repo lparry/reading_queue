@@ -1,4 +1,3 @@
-.section
-  %h3
-    It's a queue!
-
+%frameset{:rows => "*, 30px", :border => '0px', 'frameborder' => '0px', 'framespacing' => '0px'}
+  %frame{:src => @item.url, :noresize => "noresize"}
+  %frame{:src => "/nav" ,:noresize => "noresize"}
