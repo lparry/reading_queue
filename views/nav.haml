@@ -1,4 +1,10 @@
 %a{:href => '/mark_read', :target => '_top', :style => 'float:left;'}
   Next
-%a{:href => '/queue', :target => '_top', :style => 'float:right;'}
-  Queue
+%span
+  %span{:style => 'float:right;'}
+    [
+    %a{:href => @url, :target => '_top'}
+      X
+    ]
+  %a{:href => '/queue', :target => '_top', :style => 'float:right;'}
+    Queue

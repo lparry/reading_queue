@@ -36,6 +36,7 @@ get '/' do
 end
 
 get '/nav?' do
+  @url = QueueItem.unread.first.try(:url)
   haml :nav, :layout => false
 end
 
